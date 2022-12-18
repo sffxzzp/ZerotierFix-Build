@@ -1,0 +1,75 @@
+name: build
+
+on:
+  repository_dispatch:
+    types: [build-on-demand]
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: 'trigger'
+        required: false
+        type: string
+        default: ''
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout ZeroTierOne
+        uses: actions/checkout@v3
+        with:
+          repository: 'zerotier/ZeroTierOne'
+          path: 'ZeroTierOne'
+          ref: 'master'
+      - name: Checkout ZeroTierFix
+        uses: actions/checkout@v3
+        with:
+          repository: 'kaaass/ZerotierFix'
+          path: 'ZerotierFix'
+      - name: Prehandle ZeroTierFix
+        run: |
+          export version=$(curl "https://api.github.com/repos/zerotier/ZeroTierOne/releases/latest" | jq -r '.name')
+          export ver=${version//./}
+          cd ZerotierFix
+          cd app
+          sed -i "s/_189/_$ver/g" build.gradle
+          cd src
+          cd main
+          cd java
+          rm -rf com/
+          cd ../
+          rm -rf jniLibs
+          cd ../../../../
+      - name: Setup NDK
+        uses: nttld/setup-ndk@v1
+        with: 
+          ndk-version: r25b
+      - name: Compile ZeroTier Core & Move Files to ZerotierFix
+        run: |
+          cd ZeroTierOne
+          export ZT1=$(pwd)
+          cd osdep
+          wget https://github.com/nlohmann/json/releases/download/v3.11.2/json.hpp
+          sed -i 's/<nlohmann\/json.hpp>/"json.hpp"/g' OSUtils.hpp
+          cd ../java
+          sed -i 's/#include <string>/#include <string>\n#include <cassert>/g' ./jni/ZT_jniarray.cpp
+          ndk-build NDK_PROJECT_PATH=. NDK_DEBUG=0 APP_PLATFORM=android-24 ZT1=$ZT1
+          cd src
+          mv com/ ../../../ZerotierFix/app/src/main/java/
+          cd ..
+          mv libs/ ../../ZerotierFix/app/src/main/jniLibs
+          cd ..
+          cd ..
+          rm -rf ZeroTierOne
+      - name: Build APK
+        uses: sparkfabrik/android-build-action@master
+        with:
+          project-path: ZerotierFix
+          output-path: ZerotierFix-Debug.apk
+          gradle-task: assemble
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ZerotierFix-Build
+          path: ZerotierFix-Debug.apk
