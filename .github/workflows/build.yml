@@ -33,7 +33,7 @@ jobs:
           export ver=${version//./}
           cd ZerotierFix
           cd app
-          sed -i "s/_189/_$ver/g" build.gradle
+          sed -r -i 's/versionName "(.*)_.*"/versionName "\1_$ver"/g' build.gradle
           cd src
           cd main
           cd java
