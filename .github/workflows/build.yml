@@ -52,7 +52,9 @@ jobs:
           cd osdep
           wget https://github.com/nlohmann/json/releases/download/v3.11.2/json.hpp
           sed -i 's/<nlohmann\/json.hpp>/"json.hpp"/g' OSUtils.hpp
-          cd ../java
+          cd ../java/jni
+          wget https://github.com/sffxzzp/ZerotierFix-Build/raw/main/Android.mk
+          cd ..
           sed -i 's/#include <string>/#include <string>\n#include <cassert>/g' ./jni/ZT_jniarray.cpp
           ndk-build NDK_PROJECT_PATH=. NDK_DEBUG=0 APP_PLATFORM=android-24 ZT1=$ZT1
           cd src
