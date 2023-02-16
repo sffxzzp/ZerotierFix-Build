@@ -6,10 +6,10 @@ on:
   workflow_dispatch:
     inputs:
       tags:
-        description: 'trigger'
+        description: "trigger"
         required: false
         type: string
-        default: ''
+        default: ""
 
 jobs:
   build:
@@ -19,14 +19,14 @@ jobs:
       - name: Checkout ZeroTierOne
         uses: actions/checkout@v3
         with:
-          repository: 'zerotier/ZeroTierOne'
-          path: 'ZeroTierOne'
-          ref: 'main'
+          repository: "zerotier/ZeroTierOne"
+          path: "ZeroTierOne"
+          ref: "main"
       - name: Checkout ZeroTierFix
         uses: actions/checkout@v3
         with:
-          repository: 'kaaass/ZerotierFix'
-          path: 'ZerotierFix'
+          repository: "kaaass/ZerotierFix"
+          path: "ZerotierFix"
       - name: Prehandle ZeroTierFix
         run: |
           export version=$(curl "https://api.github.com/repos/zerotier/ZeroTierOne/releases/latest" | jq -r '.name')
@@ -43,7 +43,7 @@ jobs:
           cd ../../../../
       - name: Setup NDK
         uses: nttld/setup-ndk@v1
-        with: 
+        with:
           ndk-version: r25b
       - name: Compile ZeroTier Core & Move Files to ZerotierFix
         run: |
@@ -54,6 +54,7 @@ jobs:
           sed -i 's/<nlohmann\/json.hpp>/"json.hpp"/g' OSUtils.hpp
           cd ../java/jni
           wget https://github.com/sffxzzp/ZerotierFix-Build/raw/main/Android.mk
+          wget https://github.com/sffxzzp/ZerotierFix-Build/raw/main/Application.mk
           cd ..
           sed -i 's/#include <string>/#include <string>\n#include <cassert>/g' ./jni/ZT_jniarray.cpp
           ndk-build NDK_PROJECT_PATH=. NDK_DEBUG=0 APP_PLATFORM=android-24 ZT1=$ZT1
