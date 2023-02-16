@@ -44,7 +44,7 @@ jobs:
       - name: Setup NDK
         uses: nttld/setup-ndk@v1
         with:
-          ndk-version: r25b
+          ndk-version: r25c
       - name: Compile ZeroTier Core & Move Files to ZerotierFix
         run: |
           cd ZeroTierOne
