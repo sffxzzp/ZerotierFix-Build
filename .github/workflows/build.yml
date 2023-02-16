@@ -21,7 +21,7 @@ jobs:
         with:
           repository: 'zerotier/ZeroTierOne'
           path: 'ZeroTierOne'
-          ref: 'master'
+          ref: 'main'
       - name: Checkout ZeroTierFix
         uses: actions/checkout@v3
         with:
