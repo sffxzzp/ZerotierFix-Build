@@ -68,7 +68,7 @@ jobs:
           cd ..
           rm -rf ZeroTierOne
       - name: Build APK
-        uses: sparkfabrik/android-build-action@v1.2.0
+        uses: anime-vsub/android-build-action@1.2.1
         with:
           project-path: ZerotierFix
           output-path: ZerotierFix-Debug.apk
