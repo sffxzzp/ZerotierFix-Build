@@ -62,7 +62,6 @@ jobs:
           cp ../../../ZeroTierFix-Build/Android.mk .
           cp ../../../ZeroTierFix-Build/Application.mk .
           cd ..
-          sed -i 's/#include <string>/#include <string>\n#include <cassert>/g' ./jni/ZT_jniarray.cpp
           ndk-build NDK_PROJECT_PATH=. NDK_DEBUG=0 APP_PLATFORM=android-24 ZT1=$ZT1
           cd src
           mv com/ ../../../ZerotierFix/app/src/main/java/
