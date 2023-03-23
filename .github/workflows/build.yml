@@ -27,6 +27,10 @@ jobs:
         with:
           repository: "kaaass/ZerotierFix"
           path: "ZerotierFix"
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: "ZeroTierFix-Build"
       - name: Prehandle ZeroTierFix
         run: |
           export version=$(curl "https://api.github.com/repos/zerotier/ZeroTierOne/releases/latest" | jq -r '.name')
@@ -55,8 +59,8 @@ jobs:
           wget https://github.com/nlohmann/json/releases/download/v3.11.2/json.hpp
           sed -i 's/<nlohmann\/json.hpp>/"json.hpp"/g' OSUtils.hpp
           cd ../java/jni
-          wget https://github.com/sffxzzp/ZerotierFix-Build/raw/main/Android.mk
-          wget https://github.com/sffxzzp/ZerotierFix-Build/raw/main/Application.mk
+          cp ../../../ZeroTierFix-Build/Android.mk .
+          cp ../../../ZeroTierFix-Build/Application.mk .
           cd ..
           sed -i 's/#include <string>/#include <string>\n#include <cassert>/g' ./jni/ZT_jniarray.cpp
           ndk-build NDK_PROJECT_PATH=. NDK_DEBUG=0 APP_PLATFORM=android-24 ZT1=$ZT1
