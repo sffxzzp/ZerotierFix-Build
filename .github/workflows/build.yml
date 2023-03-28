@@ -41,8 +41,6 @@ jobs:
           cd src
           cd main
           cd java
-          sed -i 's/status.getAddres/status.getAddress/g' ./net/kaaass/zerotierfix/service/ZeroTierOneService.java
-          sed -i 's/status.getAddres/status.getAddress/g' ./net/kaaass/zerotierfix/ui/NetworkListFragment.java
           rm -rf com/
           cd ../
           rm -rf jniLibs
