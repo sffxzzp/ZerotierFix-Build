@@ -8,7 +8,7 @@ LOCAL_C_INCLUDES := \
     $(ZT1)/node \
     $(ZT1)/ext \
     $(ZT1)/ext/prometheus-cpp-lite-1.0/core/include \
-    $(ZT1)/extprometheus-cpp-lite-1.0/simpleapi/include \
+    $(ZT1)/ext/prometheus-cpp-lite-1.0/simpleapi/include \
     $(ZT1)/osdep
 
 LOCAL_LDLIBS := -llog
