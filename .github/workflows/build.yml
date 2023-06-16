@@ -56,10 +56,7 @@ jobs:
         run: |
           cd ZeroTierOne
           export ZT1=$(pwd)
-          cd osdep
-          wget https://github.com/nlohmann/json/releases/download/v3.11.2/json.hpp
-          sed -i 's/<nlohmann\/json.hpp>/"json.hpp"/g' OSUtils.hpp
-          cd ../java/jni
+          cd java/jni
           cp ../../../ZeroTierFix-Build/Android.mk .
           cp ../../../ZeroTierFix-Build/Application.mk .
           cd ..

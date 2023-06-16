@@ -6,6 +6,7 @@ LOCAL_MODULE := ZeroTierOneJNI
 LOCAL_C_INCLUDES := \
     $(ZT1)/include \
     $(ZT1)/node \
+    $(ZT1)/ext \
     $(ZT1)/osdep
 
 LOCAL_LDLIBS := -llog
@@ -33,6 +34,7 @@ LOCAL_SRC_FILES := \
 	$(ZT1)/node/IncomingPacket.cpp \
 	$(ZT1)/node/InetAddress.cpp \
 	$(ZT1)/node/Membership.cpp \
+	$(ZT1)/node/Metrics.cpp \
 	$(ZT1)/node/Multicaster.cpp \
 	$(ZT1)/node/Network.cpp \
 	$(ZT1)/node/NetworkConfig.cpp \
