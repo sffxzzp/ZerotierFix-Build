@@ -92,4 +92,7 @@ if(WIN32)
   set(link_libs wsock32 ws2_32)
 endif()
 
+set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Os -Wall -s")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Os -Wall -s")
+
 target_link_libraries(${PROJECT_NAME} ${link_libs})
