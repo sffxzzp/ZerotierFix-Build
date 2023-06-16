@@ -47,9 +47,12 @@ jobs:
           cd ../../../../
       - name: Setup NDK
         uses: nttld/setup-ndk@v1
+        id: setup-ndk
         with:
           ndk-version: r25c
       - name: Compile ZeroTier Core & Move Files to ZerotierFix
+        env:
+          NDKHOME: ${{ steps.setup-ndk.outputs.ndk-path }}
         run: |
           cd ZeroTierOne
           export ZT1=$(pwd)
