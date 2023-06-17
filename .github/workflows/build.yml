@@ -29,8 +29,14 @@ jobs:
         run: |
           export version=$(curl "https://api.github.com/repos/zerotier/ZeroTierOne/releases/latest" | jq -r '.name')
           export ver=${version//./}
-          cd ZerotierFix
-          cd app
+          echo "corever=$ver" >> $GITHUB_ENV
+          cd ZerotierFix/app
+          # 临时补丁，待 ZerotierFix 仓库更新后删除该段
+          cd src/main/java/net/kaaass/zerotierfix/ui
+          rm NetworkListFragment.java
+          wget https://raw.githubusercontent.com/2770862886/ZerotierFix/master/app/src/main/java/net/kaaass/zerotierfix/ui/NetworkListFragment.java
+          cd ../../../../../../../
+          # 临时补丁结束
           sed -r -i "s/minSdkVersion 19/minSdkVersion 17/g" build.gradle
           sed -r -i "s/versionName \"([^_]*?)_.*\"/versionName \"\1_$ver\"/g" build.gradle
           cd src
@@ -79,4 +85,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ZerotierFix-Build
-          path: ZerotierFix-Debug.apk
+          path: ZerotierFix-${{ env.corever }}.apk
