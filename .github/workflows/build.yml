@@ -37,7 +37,6 @@ jobs:
           wget https://raw.githubusercontent.com/2770862886/ZerotierFix/master/app/src/main/java/net/kaaass/zerotierfix/ui/NetworkListFragment.java
           cd ../../../../../../../
           # 临时补丁结束
-          sed -r -i "s/minSdkVersion 19/minSdkVersion 17/g" build.gradle
           sed -r -i "s/versionName \"([^_]*?)_.*\"/versionName \"\1_$ver\"/g" build.gradle
           cd src
           cd main
@@ -54,7 +53,7 @@ jobs:
       - name: Compile ZeroTier Core & Move Files to ZerotierFix
         env:
           CMAKE_TOOLCHAIN_FILE: ${{ steps.setup-ndk.outputs.ndk-path }}/build/cmake/android.toolchain.cmake
-          SDK: android-17
+          SDK: android-19
         run: |
           cd ZeroTierOne/java
           rm CMakeLists.txt
