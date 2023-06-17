@@ -14,7 +14,7 @@ ZerotierFix-Build
 
 想了半天，应该还是因为官方库里 CMakeLists.txt 的问题，根据 Android.mk 以及编译时候的报错信息对文件进行了修改。
 
-当前可以正常编译通过，但并未进行过测试。
+当前可以正常编译通过，个人测试 apk 使用正常，需要更多测试。
 
 编译步骤如下：
 1. 首先 cd 至 ZeroTierOne/java
