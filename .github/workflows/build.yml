@@ -53,26 +53,14 @@ jobs:
           rm CMakeLists.txt
           cp ../../ZeroTierFix-Build/CMakeLists.txt .
           mkdir jniLibs
-          mkdir jniLibs/armeabi-v7a
-          cmake -DCMAKE_TOOLCHAIN_FILE=$CMAKE_TOOLCHAIN_FILE -DANDROID_ABI=armeabi-v7a -DANDROID_PLATFORM=$SDK
-          make
-          rm CMakeFiles/ -rf
-          mv libZeroTierOneJNI.so jniLibs/armeabi-v7a/
-          mkdir jniLibs/arm64-v8a
-          cmake -DCMAKE_TOOLCHAIN_FILE=$CMAKE_TOOLCHAIN_FILE -DANDROID_ABI=arm64-v8a -DANDROID_PLATFORM=$SDK
-          make
-          rm CMakeFiles/ -rf
-          mv libZeroTierOneJNI.so jniLibs/arm64-v8a/
-          mkdir jniLibs/x86
-          cmake -DCMAKE_TOOLCHAIN_FILE=$CMAKE_TOOLCHAIN_FILE -DANDROID_ABI=x86 -DANDROID_PLATFORM=$SDK
-          make
-          rm CMakeFiles/ -rf
-          mv libZeroTierOneJNI.so jniLibs/x86/
-          mkdir jniLibs/x86_64
-          cmake -DCMAKE_TOOLCHAIN_FILE=$CMAKE_TOOLCHAIN_FILE -DANDROID_ABI=x86_64 -DANDROID_PLATFORM=$SDK
-          make
-          rm CMakeFiles/ -rf
-          mv libZeroTierOneJNI.so jniLibs/x86_64
+          for ABI in "armeabi-v7a" "arm64-v8a" "x86" "x86_64"
+          do
+            mkdir jniLibs/$ABI
+            cmake -DCMAKE_TOOLCHAIN_FILE=$CMAKE_TOOLCHAIN_FILE -DANDROID_ABI=$ABI -DANDROID_PLATFORM=$SDK
+            make
+            rm CMakeFiles/ -rf
+            mv libZeroTierOneJNI.so jniLibs/$ABI/
+          done
           cd src
           mv com/ ../../../ZerotierFix/app/src/main/java/
           cd ..
