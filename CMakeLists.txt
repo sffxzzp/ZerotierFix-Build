@@ -92,7 +92,7 @@ if(WIN32)
   set(link_libs wsock32 ws2_32)
 endif()
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Os -Wall")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Os -Wall")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Os -Wall -s -Wno-unused-command-line-argument")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Os -Wall -s -Wno-unused-command-line-argument")
 
 target_link_libraries(${PROJECT_NAME} ${link_libs})
