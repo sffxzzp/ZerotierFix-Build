@@ -79,7 +79,7 @@ jobs:
         uses: anime-vsub/android-build-action@1.2.1
         with:
           project-path: ZerotierFix
-          output-path: ZerotierFix-Debug.apk
+          output-path: ZerotierFix-${{ env.corever }}.apk
           gradle-task: assemble
       - name: Upload artifact
         uses: actions/upload-artifact@v3
