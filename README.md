@@ -5,7 +5,7 @@ ZerotierFix-Build
 
 ~~根据 [ZerotierFix#31](https://github.com/kaaass/ZerotierFix/issues/31) 的脚本，实现自动编译 ZeroTier Core 以及更新 ZerotierFix 中的 SDK。~~
 
-现已改用 CMake 编译，使用 NDK-Build 编译，可参考[此处](https://github.com/sffxzzp/ZerotierFix-Build#%E4%BD%BF%E7%94%A8-ndk-build-%E7%BC%96%E8%AF%91%E7%9A%84%E5%8F%82%E8%80%83)。
+现已改用 CMake 编译。若使用 NDK-Build 编译，可参考[此处](https://github.com/sffxzzp/ZerotierFix-Build#%E4%BD%BF%E7%94%A8-ndk-build-%E7%BC%96%E8%AF%91%E7%9A%84%E5%8F%82%E8%80%83)。
 
 点击此处 [下载](https://nightly.ore-imo.tk/ZerotierFix-Build)。
 
