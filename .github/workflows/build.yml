@@ -4,12 +4,6 @@ on:
   repository_dispatch:
     types: [build-on-demand]
   workflow_dispatch:
-    inputs:
-      tags:
-        description: "trigger"
-        required: false
-        type: string
-        default: ""
 
 jobs:
   build:
@@ -54,17 +48,34 @@ jobs:
         env:
           NDKHOME: ${{ steps.setup-ndk.outputs.ndk-path }}
         run: |
-          cd ZeroTierOne
-          export ZT1=$(pwd)
-          cd java/jni
-          cp ../../../ZeroTierFix-Build/Android.mk .
-          cp ../../../ZeroTierFix-Build/Application.mk .
-          cd ..
-          ndk-build NDK_PROJECT_PATH=. NDK_DEBUG=0 APP_PLATFORM=android-24 ZT1=$ZT1
+          cd ZeroTierOne/java
+          rm CMakeLists.txt
+          cp ../../ZeroTierFix-Build/CMakeLists.txt .
+          mkdir jniLibs
+          mkdir jniLibs/armeabi-v7a
+          cmake -DCMAKE_TOOLCHAIN_FILE=$NDKHOME/build/cmake/android.toolchain.cmake -DANDROID_ABI=armeabi-v7a -DANDROID_PLATFORM=android-24
+          make
+          rm CMakeFiles/ -rf
+          mv libZeroTierOneJNI.so jniLibs/armeabi-v7a/
+          mkdir jniLibs/arm64-v8a
+          cmake -DCMAKE_TOOLCHAIN_FILE=$NDKHOME/build/cmake/android.toolchain.cmake -DANDROID_ABI=arm64-v8a -DANDROID_PLATFORM=android-24
+          make
+          rm CMakeFiles/ -rf
+          mv libZeroTierOneJNI.so jniLibs/arm64-v8a/
+          mkdir jniLibs/x86
+          cmake -DCMAKE_TOOLCHAIN_FILE=$NDKHOME/build/cmake/android.toolchain.cmake -DANDROID_ABI=x86 -DANDROID_PLATFORM=android-24
+          make
+          rm CMakeFiles/ -rf
+          mv libZeroTierOneJNI.so jniLibs/x86/
+          mkdir jniLibs/x86_64
+          cmake -DCMAKE_TOOLCHAIN_FILE=$NDKHOME/build/cmake/android.toolchain.cmake -DANDROID_ABI=x86_64 -DANDROID_PLATFORM=android-24
+          make
+          rm CMakeFiles/ -rf
+          mv libZeroTierOneJNI.so jniLibs/x86_64
           cd src
           mv com/ ../../../ZerotierFix/app/src/main/java/
           cd ..
-          mv libs/ ../../ZerotierFix/app/src/main/jniLibs
+          mv jniLibs/ ../../ZerotierFix/app/src/main/
           cd ..
           cd ..
           rm -rf ZeroTierOne
