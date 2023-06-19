@@ -31,12 +31,6 @@ jobs:
           export ver=${version//./}
           echo "corever=$ver" >> $GITHUB_ENV
           cd ZerotierFix/app
-          # 临时补丁，待 ZerotierFix 仓库更新后删除该段
-          cd src/main/java/net/kaaass/zerotierfix/ui
-          rm NetworkListFragment.java
-          wget https://raw.githubusercontent.com/2770862886/ZerotierFix/master/app/src/main/java/net/kaaass/zerotierfix/ui/NetworkListFragment.java
-          cd ../../../../../../../
-          # 临时补丁结束
           sed -r -i "s/versionName \"([^_]*?)_.*\"/versionName \"\1_$ver\"/g" build.gradle
           cd src
           cd main
