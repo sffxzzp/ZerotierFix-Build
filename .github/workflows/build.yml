@@ -74,8 +74,8 @@ jobs:
         with:
           project-path: ZerotierFix
           output-path: ZerotierFix-${{ env.corever }}.apk
-          gradle-task: bundle
-          package-name: "net.kaaass.zerotierfix"
+          gradle-task: assemble
+          build-type: Release
           keystore-content: ${{ secrets.KEYSTORE }}
           keystore-password: ${{ secrets.KEYSTORE_PASSWORD }}
           keystore-alias: ${{ secrets.KEYSTORE_ALIAS }}
