@@ -69,13 +69,17 @@ jobs:
           cd ..
           rm -rf ZeroTierOne
       - name: Build APK
-        uses: anime-vsub/android-build-action@1.2.1
+        uses: sparkfabrik/android-build-action@v1.5.0
         with:
           project-path: ZerotierFix
           output-path: ZerotierFix-${{ env.corever }}.apk
-          gradle-task: assemble
+          gradle-task: bundle
+          package-name: "net.kaaass.zerotierfix"
+          keystore-content: ${{ secrets.KEYSTORE }}
+          keystore-password: ${{ secrets.KEYSTORE_PASSWORD }}
+          keystore-alias: ${{ secrets.KEYSTORE_ALIAS }}
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ZerotierFix-Build
+          name: ZerotierFix-${{ env.corever }}
           path: ZerotierFix-${{ env.corever }}.apk
