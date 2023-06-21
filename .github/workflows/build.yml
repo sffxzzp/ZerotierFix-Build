@@ -64,6 +64,7 @@ jobs:
           cd src
           mv com/ ../../../ZerotierFix/app/src/main/java/
           cd ..
+          cp -r jniLibs/ ../../
           mv jniLibs/ ../../ZerotierFix/app/src/main/
           cd ..
           cd ..
@@ -78,8 +79,13 @@ jobs:
           keystore-content: ${{ secrets.KEYSTORE }}
           keystore-password: ${{ secrets.KEYSTORE_PASSWORD }}
           keystore-alias: ${{ secrets.KEYSTORE_ALIAS }}
-      - name: Upload artifact
+      - name: Upload apk
         uses: actions/upload-artifact@v3
         with:
           name: ZerotierFix-${{ env.corever }}
           path: ZerotierFix-${{ env.corever }}.apk
+      - name: Upload jniLibs
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.corever }}-jniLibs
+          path: jniLibs/
