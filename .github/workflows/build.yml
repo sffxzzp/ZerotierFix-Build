@@ -69,23 +69,26 @@ jobs:
           cd ..
           cd ..
           rm -rf ZeroTierOne
+      - name: Upload jniLibs
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.corever }}-jniLibs
+          path: jniLibs/
       - name: Build APK
         uses: sparkfabrik/android-build-action@v1.5.0
         with:
           project-path: ZerotierFix
           output-path: ZerotierFix-${{ env.corever }}.apk
           gradle-task: assemble
-          build-type: Release
-          keystore-content: ${{ secrets.KEYSTORE }}
-          keystore-password: ${{ secrets.KEYSTORE_PASSWORD }}
-          keystore-alias: ${{ secrets.KEYSTORE_ALIAS }}
+      - name: Sign APK
+        uses: noriban/sign-android-release@v3
+        with:
+          releaseDirectory: .
+          signingKeyBase64: ${{ secrets.KEYSTORE }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+          alias: ${{ secrets.KEYSTORE_ALIAS }}
       - name: Upload apk
         uses: actions/upload-artifact@v3
         with:
           name: ZerotierFix-${{ env.corever }}
           path: ZerotierFix-${{ env.corever }}.apk
-      - name: Upload jniLibs
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ env.corever }}-jniLibs
-          path: jniLibs/
