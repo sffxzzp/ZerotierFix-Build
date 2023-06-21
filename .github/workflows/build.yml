@@ -81,6 +81,7 @@ jobs:
           output-path: ZerotierFix-${{ env.corever }}.apk
           gradle-task: assemble
       - name: Sign APK
+        id: sign_app
         uses: noriban/sign-android-release@v3
         with:
           releaseDirectory: .
@@ -91,4 +92,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ZerotierFix-${{ env.corever }}
-          path: ZerotierFix-${{ env.corever }}.apk
+          path: ${{ steps.sign_app.outputs.signedReleaseFile }}
