@@ -29,38 +29,9 @@ if(APPLE)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_C_FLAGS} -fno-rtti")
 endif()
 
+file(GLOB core_src_glob ../node/*.cpp)
+
 set(src_files
-    ../node/AES.cpp
-    ../node/AES_aesni.cpp
-    ../node/AES_armcrypto.cpp
-    ../node/Bond.cpp
-    ../node/C25519.cpp
-    ../node/Capability.cpp
-    ../node/CertificateOfMembership.cpp
-    ../node/CertificateOfOwnership.cpp
-    ../node/Identity.cpp
-    ../node/IncomingPacket.cpp
-    ../node/InetAddress.cpp
-    ../node/Membership.cpp
-    ../node/Metrics.cpp
-    ../node/Multicaster.cpp
-    ../node/Network.cpp
-    ../node/NetworkConfig.cpp
-    ../node/Node.cpp
-    ../node/OutboundMulticast.cpp
-    ../node/Packet.cpp
-    ../node/Path.cpp
-    ../node/Peer.cpp
-    ../node/Poly1305.cpp
-    ../node/Revocation.cpp
-    ../node/Salsa20.cpp
-    ../node/SelfAwareness.cpp
-    ../node/SHA512.cpp
-    ../node/Switch.cpp
-    ../node/Tag.cpp
-    ../node/Topology.cpp
-    ../node/Trace.cpp
-    ../node/Utils.cpp
     ../osdep/OSUtils.cpp
     jni/com_zerotierone_sdk_Node.cpp
     jni/ZT_jniutils.cpp
@@ -80,7 +51,7 @@ endif()
 
 include_directories(${include_dirs})
 
-add_library(${PROJECT_NAME} SHARED ${src_files})
+add_library(${PROJECT_NAME} SHARED ${src_files} ${core_src_glob})
 
 if(APPLE)
   set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".jnilib")
