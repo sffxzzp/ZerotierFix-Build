@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           path: "ZeroTierFix-Build"
-      - name: Prehandle ZeroTierFix
+      - name: Do something
         run: |
           export version=$(curl "https://api.github.com/repos/zerotier/ZeroTierOne/releases/latest" | jq -r '.name')
           export ver=${version//./}
@@ -35,11 +35,6 @@ jobs:
           repository: "zerotier/ZeroTierOne"
           path: "ZerotierFix/externals/core"
           ref: "dev"
-      - name: Setup NDK
-        uses: nttld/setup-ndk@v1
-        id: setup-ndk
-        with:
-          ndk-version: r25c
       - name: Do something else
         run: |
           cd ZerotierFix/externals/core/java
