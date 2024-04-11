@@ -47,11 +47,11 @@ jobs:
           project-path: ZerotierFix
           output-path: ZerotierFix-${{ env.corever }}.apk
           gradle-task: assemble
+          ruby-version: "3.3.0"
       - name: Sign APK
         id: sign_app
         uses: noriban/sign-android-release@v3
         with:
-          ruby-version: "3.3.0"
           releaseDirectory: .
           signingKeyBase64: ${{ secrets.KEYSTORE }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
