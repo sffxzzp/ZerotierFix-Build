@@ -51,6 +51,7 @@ jobs:
         id: sign_app
         uses: noriban/sign-android-release@v3
         with:
+          ruby-version: 3.3.0
           releaseDirectory: .
           signingKeyBase64: ${{ secrets.KEYSTORE }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
