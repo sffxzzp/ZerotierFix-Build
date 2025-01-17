@@ -11,12 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout ZeroTierFix
-        uses: actions/checkout@v4.1.2
+        uses: actions/checkout@v4.
         with:
           repository: "kaaass/ZerotierFix"
           path: "ZerotierFix"
       - name: Checkout
-        uses: actions/checkout@v4.1.2
+        uses: actions/checkout@v4
         with:
           path: "ZeroTierFix-Build"
       - name: Do something
@@ -30,7 +30,7 @@ jobs:
           rm -rf externals
           mkdir externals
       - name: Checkout ZeroTierOne
-        uses: actions/checkout@v4.1.2
+        uses: actions/checkout@v4
         with:
           repository: "zerotier/ZeroTierOne"
           path: "ZerotierFix/externals/core"
@@ -57,7 +57,7 @@ jobs:
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
           alias: ${{ secrets.KEYSTORE_ALIAS }}
       - name: Upload apk
-        uses: actions/upload-artifact@v4.3.1
+        uses: actions/upload-artifact@v4
         with:
           name: ZerotierFix-${{ env.corever }}
           path: ${{ steps.sign_app.outputs.signedReleaseFile }}
