@@ -1,6 +1,16 @@
 ZerotierFix-Build
 ======
 
+注意
+------
+
+看最近有许多 Fork 仓库去自己构建的，提醒一下需要添加 3 个 Secrets 才可以正常编译。
+
+分别是 `KEYSTORE`，`KEYSTORE_ALIAS` 以及 `KEYSTORE_PASSWORD`，具体说明请参考：[https://github.com/noriban/sign-android-release](https://github.com/noriban/sign-android-release)
+
+说明
+------
+
 一个使用 Github Actions 的 [ZerotierFix](https://github.com/kaaass/ZerotierFix) 构建。
 
 由于 ZerotierFix 已经支持使用 ZeroTier Core 的 fork 版本进行编译，本仓库修改为使用原始 ZeroTier Core 仓库编译。
