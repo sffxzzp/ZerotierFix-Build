@@ -13,7 +13,8 @@ jobs:
       - name: Checkout ZeroTierFix
         uses: actions/checkout@v4
         with:
-          repository: "kaaass/ZerotierFix"
+          repository: "wongsyrone/ZerotierFix"
+          # repository: "kaaass/ZerotierFix"
           path: "ZerotierFix"
       - name: Checkout
         uses: actions/checkout@v4
