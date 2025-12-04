@@ -13,8 +13,9 @@ jobs:
       - name: Checkout ZeroTierFix
         uses: actions/checkout@v4
         with:
-          repository: "wongsyrone/ZerotierFix"
-          # repository: "kaaass/ZerotierFix"
+          # The core has been modified in this repo so it's not working with official cores.
+          # repository: "wongsyrone/ZerotierFix"
+          repository: "kaaass/ZerotierFix"
           path: "ZerotierFix"
       - name: Checkout
         uses: actions/checkout@v4
