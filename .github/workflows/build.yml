@@ -11,14 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout ZeroTierFix
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           # The core has been modified in this repo so it's not working with official cores.
           # repository: "wongsyrone/ZerotierFix"
           repository: "kaaass/ZerotierFix"
           path: "ZerotierFix"
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           path: "ZeroTierFix-Build"
       - name: Do something
@@ -32,7 +32,7 @@ jobs:
           rm -rf externals
           mkdir externals
       - name: Checkout ZeroTierOne
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: "zerotier/ZeroTierOne"
           path: "ZerotierFix/externals/core"
@@ -44,12 +44,12 @@ jobs:
           cp ../../../../ZeroTierFix-Build/CMakeLists.txt .
           cd ../../../../
       - name: Setup Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v6
       - name: Build APK
         run: |
           cd ZerotierFix
@@ -59,14 +59,14 @@ jobs:
           cd ..
       - name: Sign APK
         id: sign_app
-        uses: noriban/sign-android-release@v5.1
+        uses: noriban/sign-android-release@v5
         with:
           releaseDirectory: .
           signingKeyBase64: ${{ secrets.KEYSTORE }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
           alias: ${{ secrets.KEYSTORE_ALIAS }}
       - name: Upload apk
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ZerotierFix-${{ env.corever }}
           path: ${{ steps.sign_app.outputs.signedReleaseFile }}
