@@ -43,13 +43,20 @@ jobs:
           rm CMakeLists.txt
           cp ../../../../ZeroTierFix-Build/CMakeLists.txt .
           cd ../../../../
-      - name: Build APK
-        uses: sparkfabrik/android-build-action@v1.5.0
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
-          project-path: ZerotierFix
-          output-path: ZerotierFix-${{ env.corever }}.apk
-          gradle-task: assemble
-          ruby-version: "3.3.0"
+          distribution: temurin
+          java-version: '17'
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+      - name: Build APK
+        run: |
+          cd ZerotierFix
+          chmod +x gradlew
+          ./gradlew assembleRelease
+          cp app/build/outputs/apk/release/*.apk ../ZerotierFix-${{ env.corever }}.apk
+          cd ..
       - name: Sign APK
         id: sign_app
         uses: noriban/sign-android-release@v5.1
