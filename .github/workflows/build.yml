@@ -23,7 +23,7 @@ jobs:
           path: "ZeroTierFix-Build"
       - name: Do something
         run: |
-          export version=$(curl "https://api.github.com/repos/zerotier/ZeroTierOne/releases/latest" | jq -r '.name')
+          export version=$(curl "https://api.github.com/repos/zerotier/ZeroTierOne/releases/latest" | jq -r '.tag_name')
           export ver=${version//./}
           echo "corever=$ver" >> $GITHUB_ENV
           cd ZerotierFix/app
@@ -55,7 +55,7 @@ jobs:
           cd ZerotierFix
           chmod +x gradlew
           ./gradlew assembleRelease
-          cp app/build/outputs/apk/release/*.apk ../ZerotierFix-${{ env.corever }}.apk
+          cp app/build/outputs/apk/release/*.apk "../ZerotierFix-${{ env.corever }}.apk"
           cd ..
       - name: Sign APK
         id: sign_app
